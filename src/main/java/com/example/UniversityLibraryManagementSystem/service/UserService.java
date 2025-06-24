@@ -1,21 +1,27 @@
-package com.example.IoT.Device.Management.service;
+package com.example.UniversityLibraryManagementSystem.service;
 
-import com.example.IoT.Device.Management.dao.RoleDao;
-import com.example.IoT.Device.Management.dao.UserDao;
-import com.example.IoT.Device.Management.exception.*;
-import com.example.IoT.Device.Management.mapper.UserMapper;
-import com.example.IoT.Device.Management.model.Role;
-import com.example.IoT.Device.Management.model.Users;
-import com.example.IoT.Device.Management.request.*;
-import com.example.IoT.Device.Management.utils.GenerateJWTToken;
-import com.example.IoT.Device.Management.vo.LoginVO;
-import com.example.IoT.Device.Management.vo.UsersVO;
-import java.util.*;
+
+import com.example.UniversityLibraryManagementSystem.dao.RoleDao;
+import com.example.UniversityLibraryManagementSystem.dao.UserDao;
+import com.example.UniversityLibraryManagementSystem.exception.AuthenticationFailureException;
+import com.example.UniversityLibraryManagementSystem.exception.UsersExistsException;
+import com.example.UniversityLibraryManagementSystem.exception.RoleNotFoundException;
+import com.example.UniversityLibraryManagementSystem.mapper.UserMapper;
+import com.example.UniversityLibraryManagementSystem.modal.Role;
+import com.example.UniversityLibraryManagementSystem.modal.Users;
+import com.example.UniversityLibraryManagementSystem.request.LoginRequest;
+import com.example.UniversityLibraryManagementSystem.request.UserCreateRequest;
+import com.example.UniversityLibraryManagementSystem.utility.GenerateJWTToken;
+import com.example.UniversityLibraryManagementSystem.vo.LoginVO;
+import com.example.UniversityLibraryManagementSystem.vo.UsersVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @org.springframework.stereotype.Service
 @Transactional(rollbackFor = Exception.class)
@@ -23,13 +29,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
   @Autowired
-  private  UserDao userDao;
+  private UserDao userDao;
   @Autowired
   private RoleDao roleDao;
    @Autowired
    private  PasswordEncoder passwordEncoder;
   @Autowired
-  private  GenerateJWTToken generateJWTToken;
+  private GenerateJWTToken generateJWTToken;
 
   @Value("${access.token.expiry.minutes}")
   private long accessTokenExpiry;

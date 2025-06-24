@@ -1,8 +1,9 @@
-package com.example.IoT.Device.Management.vo;
+package com.example.UniversityLibraryManagementSystem.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.UUID;
 import lombok.*;
+
+import java.util.UUID;
 
 @Getter
 @Setter

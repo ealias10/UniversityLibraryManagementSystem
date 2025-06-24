@@ -28,8 +28,8 @@ public class LibraryMember {
     @Column(name = "member_id",unique = true)
     private String memberId;
 
-    @Column(name = "fist_name",unique = true)
-    private String fistName;
+    @Column(name = "first_name",unique = true)
+    private String firstName;
 
     @Column(name = "last_name",unique = true)
     private String lastName;

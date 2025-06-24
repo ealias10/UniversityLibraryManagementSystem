@@ -1,7 +1,8 @@
-package com.example.IoT.Device.Management.dao;
+package com.example.UniversityLibraryManagementSystem.dao;
 
-import com.example.IoT.Device.Management.model.Role;
-import com.example.IoT.Device.Management.repository.RoleRepository;
+
+import com.example.UniversityLibraryManagementSystem.modal.Role;
+import com.example.UniversityLibraryManagementSystem.repositery.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

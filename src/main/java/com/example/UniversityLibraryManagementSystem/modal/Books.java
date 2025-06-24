@@ -22,7 +22,9 @@ public class Books {
     private UUID id;
 
 
-    @Pattern(regexp = "[0-9]{10,13}")
+
+
+    @Pattern(regexp = "ISBN-[0-9]{10,13}")
     @Column(name = "isbn")
     private String isbn;
 

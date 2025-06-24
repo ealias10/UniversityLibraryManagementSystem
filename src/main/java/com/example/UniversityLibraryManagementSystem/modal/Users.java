@@ -1,9 +1,9 @@
-package com.example.IoT.Device.Management.model;
+package com.example.UniversityLibraryManagementSystem.modal;
 
 import jakarta.persistence.*;
-import java.util.UUID;
 import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -13,7 +13,7 @@ import org.hibernate.annotations.UuidGenerator;
 @NoArgsConstructor
 @ToString
 @Builder
-public class Users  {
+public class Users {
   @Id
   @Column(name = "id", updatable = false, nullable = false)
   @GeneratedValue(strategy = GenerationType.AUTO)

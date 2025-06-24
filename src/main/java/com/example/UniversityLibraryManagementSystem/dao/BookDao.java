@@ -30,6 +30,15 @@ public class BookDao {
         return bookRepositery.getAllBooksByTitle(title,pageable);
     }
 
+    public Page<Books> getAllBools(Pageable pageable)
+    {
+        return bookRepositery.findAll(pageable);
+    }
+    public List<Books> allList1()
+    {
+        return bookRepositery.findAll();
+    }
+
     public List<Books> getAllBools(String autherName, String genre, String publicationYearFrom, String publicationYearTo)
     {
         return bookRepositery.getAllbook(autherName,genre,publicationYearFrom,publicationYearTo);
@@ -39,9 +48,13 @@ public class BookDao {
     {
         return bookRepositery.getAllBooksByMemberId(memId,pageable);
     }
-    public List<Books> getAllBooksByAvilabilAndGenre(String avilabil,String genre)
+    public List<Books> getAllBooksByAvilabilAndGenre(String genre)
     {
-        return bookRepositery.getAllBooksByAvilabilAndGenre(avilabil,genre);
+        return bookRepositery.getAllBooksByAvilabilAndGenre(genre);
+    }
+    public List<Books> getAllBooksByGenre(String genre)
+    {
+        return bookRepositery.getAllBooksByGenre(genre);
     }
 
 

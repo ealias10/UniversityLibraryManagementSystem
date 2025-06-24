@@ -1,14 +1,14 @@
-package com.example.IoT.Device.Management.auth;
+package com.example.UniversityLibraryManagementSystem.auth;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import com.example.IoT.Device.Management.model.enums.Roles;
+import com.example.UniversityLibraryManagementSystem.modal.enu.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Collections;
 
 @AllArgsConstructor
 @Getter

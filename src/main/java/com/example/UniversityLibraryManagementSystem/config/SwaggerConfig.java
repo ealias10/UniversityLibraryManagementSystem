@@ -1,11 +1,13 @@
-package com.example.login.config;
+package com.example.UniversityLibraryManagementSystem.config;
+
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.GroupedOpenApi;
+
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -33,7 +35,7 @@ public class SwaggerConfig {
                         .bearerFormat("JWT")))
         .info(
             new Info()
-                .title("login Rest Api")
+                .title("Libery Rest Api")
                 .description("Rest Api for login web application")
                 .version("1.0"));
   }

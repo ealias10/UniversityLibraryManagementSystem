@@ -1,10 +1,11 @@
-package com.example.IoT.Device.Management.mapper;
+package com.example.UniversityLibraryManagementSystem.mapper;
 
-import com.example.IoT.Device.Management.model.Role;
-import com.example.IoT.Device.Management.model.Users;
-import com.example.IoT.Device.Management.request.UserCreateRequest;
-import com.example.IoT.Device.Management.vo.LoginVO;
-import com.example.IoT.Device.Management.vo.UsersVO;
+
+import com.example.UniversityLibraryManagementSystem.modal.Role;
+import com.example.UniversityLibraryManagementSystem.modal.Users;
+import com.example.UniversityLibraryManagementSystem.request.UserCreateRequest;
+import com.example.UniversityLibraryManagementSystem.vo.LoginVO;
+import com.example.UniversityLibraryManagementSystem.vo.UsersVO;
 
 public class UserMapper {
   public static Users createUser(UserCreateRequest request, Role role) {

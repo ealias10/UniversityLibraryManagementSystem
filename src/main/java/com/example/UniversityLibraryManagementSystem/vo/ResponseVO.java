@@ -37,6 +37,9 @@ public class ResponseVO<T> {
     @JsonProperty("content")
     private List<T> data;
 
+    @JsonProperty("content")
+    private List<T> data1;
+
     @JsonProperty("pageble")
     private PaginatedResponseVOAndCount  pageable;
 
@@ -62,6 +65,12 @@ public class ResponseVO<T> {
            this.data.addAll(data);
        }
    }
+    public void addDataList1(List<T> data,List<T> data1)
+    {
+        if (data != null|| !data.isEmpty()) {
+            this.data.addAll(data);
+        }
+    }
     public void addData(T data) {
         if (data != null) {
             this.data.add(data);

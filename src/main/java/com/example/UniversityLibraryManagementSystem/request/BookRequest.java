@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @Builder
 public class BookRequest {
 
-   @Pattern(regexp = "[0-9]{10,13}")
+ @Pattern(regexp = " EPG-[0-9]{10,13}")
     @JsonProperty("isbn")
     private String isbn;
 

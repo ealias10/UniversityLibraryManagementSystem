@@ -1,4 +1,4 @@
-package com.example.IoT.Device.Management.model.enums;
+package com.example.UniversityLibraryManagementSystem.modal.enu;
 
 public enum Roles {
     ADMIN,

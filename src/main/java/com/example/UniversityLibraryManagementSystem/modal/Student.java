@@ -1,9 +1,11 @@
-package com.example.collage.modal;
+package com.example.UniversityLibraryManagementSystem.modal;
 
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -24,7 +26,20 @@ public class Student {
 
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "auther_Id",referencedColumnName = "id")
+    @JoinColumn(name = "subject_Id",referencedColumnName = "id")
     @ToString.Exclude
-    private Departement departement;
+    private Subject subject;
+
+
+
+    @ElementCollection
+    @JoinTable(name = "marks", joinColumns = @JoinColumn(name = "id"))
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @CollectionTable(name = "markd", joinColumns = @JoinColumn(name = "mark_id", referencedColumnName = "id"))
+    private List<Marks> marksList;
+
+
+
+
+
 }

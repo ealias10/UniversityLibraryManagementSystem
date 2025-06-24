@@ -1,10 +1,12 @@
-package com.example.IoT.Device.Management.repository;
+package com.example.UniversityLibraryManagementSystem.repositery;
 
-import com.example.IoT.Device.Management.model.Users;
-import java.util.UUID;
+
+import com.example.UniversityLibraryManagementSystem.modal.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<Users, UUID> {
 

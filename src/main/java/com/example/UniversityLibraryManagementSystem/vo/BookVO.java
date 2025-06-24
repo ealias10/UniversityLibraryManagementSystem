@@ -4,6 +4,8 @@ import com.example.UniversityLibraryManagementSystem.modal.enu.Genre;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -35,7 +37,12 @@ public class BookVO {
     @JsonProperty("total_copies")
     private Integer totalCopies;
 
+    @JsonProperty("avilabile_copies")
+    private long avilabileCopies;
+
+
     @JsonProperty("author")
     private AuthorVO author;
+
 
 }

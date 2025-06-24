@@ -12,7 +12,7 @@ import java.util.UUID;
 @Table(name = "department")
 @Entity
 @Builder
-public class Departement {
+public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

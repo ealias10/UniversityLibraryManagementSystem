@@ -1,9 +1,10 @@
-package com.example.IoT.Device.Management.model;
+package com.example.UniversityLibraryManagementSystem.modal;
 
 import jakarta.persistence.*;
-import java.util.UUID;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "roles")

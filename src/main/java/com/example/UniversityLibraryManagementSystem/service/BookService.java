@@ -2,6 +2,7 @@ package com.example.UniversityLibraryManagementSystem.service;
 
 import com.example.UniversityLibraryManagementSystem.dao.AuthorDao;
 import com.example.UniversityLibraryManagementSystem.dao.BookDao;
+import com.example.UniversityLibraryManagementSystem.dao.BookLoanDao;
 import com.example.UniversityLibraryManagementSystem.exception.AutherExistException;
 import com.example.UniversityLibraryManagementSystem.exception.AuthorNotFountException;
 import com.example.UniversityLibraryManagementSystem.exception.BooksExistException;
@@ -20,6 +21,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -31,6 +35,9 @@ public class BookService {
 
     @Autowired
     private AuthorDao authorDao;
+
+    @Autowired
+    private BookLoanDao bookLoanDao;
     public BookVO createBookVO(BookRequest request) throws BooksExistException, AuthorNotFountException {
         try {
             Books existBook=bookDao.getBookByIsbn(request.getIsbn());
@@ -59,10 +66,20 @@ public class BookService {
     {
         try {
             Pageable pageable = PageRequest.of(limit - 1, offset);
-            Page<Books> usersPage = bookDao.getAllBoolsByTitle(title,pageable);
-            List<Books> getAllUsers = usersPage.toList();
+            List<Books> bookList=new ArrayList<>();
+            if(title==null||title.trim()=="") {
+                Page<Books> usersPage = bookDao.getAllBools(pageable);
+                bookList.addAll(usersPage.stream().toList());
+            }
+            else
+            {
+                Page<Books> usersPage= bookDao.getAllBoolsByTitle(title,pageable);
+                bookList.addAll(usersPage.stream().toList());
+            }
+            List<?> getList=bookLoanDao.getBookByBookLoan();
             log.info("Retrieved books list successfully");
-            return BookMapper.getBookList(getAllUsers);
+            List<BookVO> returnList=BookMapper.getBookList(bookList);
+            return BookMapper.getBookListAll(returnList,getList);
         }
         catch (Exception e)
         {
@@ -74,10 +91,19 @@ public class BookService {
     {
         try {
             Pageable pageable = PageRequest.of(limit - 1, offset);
-            Page<Books> usersPage = bookDao.getAllBooksByMemberId(memId,pageable);
-            List<Books> getAllUsers = usersPage.toList();
+            List<Books> boolList=new ArrayList<>();
+            if(memId == null ||memId.trim()=="")
+            {
+                Page<Books> usersPage = bookDao.getAllBools(pageable);
+                boolList.addAll(usersPage.stream().toList());
+            }
+            else
+            {
+                Page<Books> usersPage = bookDao.getAllBooksByMemberId(memId,pageable);
+                boolList.addAll(usersPage.stream().toList());
+            }
             log.info("Retrieved books list successfully");
-            return BookMapper.getBookList(getAllUsers);
+            return BookMapper.getBookList(boolList);
         }
         catch (Exception e)
         {
@@ -85,10 +111,17 @@ public class BookService {
             throw e;
         }
     }
-    public List<BookVO> getAllBooksByAvilabilAndGenre(String  isAvailable,String genre)
+    public List<BookVO> getAllBooksByAvilabilAndGenre(boolean  isAvailable,String genre)
     {
         try {
-            List<Books> getAllUsers =bookDao.getAllBooksByAvilabilAndGenre(isAvailable,genre);
+            List<Books> getAllUsers=new ArrayList<>();
+            if(isAvailable==true)
+            {
+                getAllUsers =bookDao.getAllBooksByAvilabilAndGenre(genre);
+            }
+            else {
+                getAllUsers=bookDao.getAllBooksByGenre(genre);
+            }
             log.info("Retrieved books list successfully");
             return BookMapper.getBookList(getAllUsers);
         }

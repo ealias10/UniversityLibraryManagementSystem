@@ -1,11 +1,10 @@
-package com.example.IoT.Device.Management.config;
+package com.example.UniversityLibraryManagementSystem.config;
 
-import static java.lang.String.format;
 
-import com.example.IoT.Device.Management.filter.JwtTokenFilter;
-import com.example.IoT.Device.Management.interceptor.GlobalExceptionHandler;
+import com.example.UniversityLibraryManagementSystem.filter.JwtTokenFilter;
+import com.example.UniversityLibraryManagementSystem.interupter.GlobalExceptionHandler;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +21,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.io.IOException;
+
+import static java.lang.String.format;
 
 @Configuration
 @EnableWebSecurity
@@ -56,7 +59,7 @@ public class SecurityConfig {
         .exceptionHandling(
             exceptionHandlingConfigurer ->
                 exceptionHandlingConfigurer.authenticationEntryPoint(
-                    (request, response, ex) -> sendUnauthorizedResponse(response, ex)))
+                    (request, response, ex) -> sendUnauthorizedResponse(request,response, ex)))
         .authorizeHttpRequests(
             request ->
                 request
@@ -75,6 +78,9 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers("/user/create")
                     .permitAll()
+                    .requestMatchers("/api/v1/book/search1")
+                    .permitAll()
+                     .requestMatchers(HttpMethod.GET,"/api/v1/book/search").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/test/**")
                     .permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/swagger-ui.html")
@@ -86,13 +92,18 @@ public class SecurityConfig {
     return http.build();
   }
 
-  private void sendUnauthorizedResponse(HttpServletResponse response, Exception ex)
+
+
+  private void sendUnauthorizedResponse(HttpServletRequest request,HttpServletResponse response, Exception ex)
       throws IOException {
+    if(response.getStatus()==403)
+    response.setStatus(response.getStatus());
+    else
     response.setStatus(HttpStatus.UNAUTHORIZED.value());
     response.setContentType("application/json");
     response
         .getOutputStream()
-        .write(GlobalExceptionHandler.getUnauthorizedResponseForAuthFilterErrors(ex));
+        .write(GlobalExceptionHandler.getUnauthorizedResponseForAuthFilterErrors(ex,request,response));
   }
 
   @Bean

@@ -1,12 +1,12 @@
-package com.example.IoT.Device.Management.dao;
-
-import com.example.IoT.Device.Management.model.Users;
-import com.example.IoT.Device.Management.repository.UserRepository;
-import java.util.UUID;
+package com.example.UniversityLibraryManagementSystem.dao;
 
 
+import com.example.UniversityLibraryManagementSystem.modal.Users;
+import com.example.UniversityLibraryManagementSystem.repositery.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
 
 @Repository
 

@@ -1,3 +1,20 @@
+CREATE TABLE roles (
+  id UUID NOT NULL,
+   name VARCHAR(255),
+   CONSTRAINT pk_roles PRIMARY KEY (id)
+);
+ALTER TABLE roles ADD CONSTRAINT uc_roles_name UNIQUE (name);
+CREATE TABLE users (
+  id UUID NOT NULL,
+   username VARCHAR(255),
+   password VARCHAR(255),
+   active BOOLEAN,
+   email VARCHAR(255),
+   role_id UUID,
+   CONSTRAINT pk_users PRIMARY KEY (id)
+);
+ALTER TABLE users ADD CONSTRAINT uc_users_username UNIQUE (username);
+ALTER TABLE users ADD CONSTRAINT FK_USERS_ON_ROLE FOREIGN KEY (role_id) REFERENCES roles (id);
 CREATE TABLE author (
   id UUID NOT NULL,
    name VARCHAR(255),
@@ -70,6 +87,9 @@ CREATE TABLE reservation (
 ALTER TABLE reservation ADD CONSTRAINT FK_RESERVATION_ON_BOOK FOREIGN KEY (book_id) REFERENCES books (id);
 
 ALTER TABLE reservation ADD CONSTRAINT FK_RESERVATION_ON_MEMBER FOREIGN KEY (member_id) REFERENCES library_member (id);
+
+INSERT INTO roles VALUES(gen_random_uuid(),'USER');
+INSERT INTO roles VALUES(gen_random_uuid(),'ADMIN');
 
 
 

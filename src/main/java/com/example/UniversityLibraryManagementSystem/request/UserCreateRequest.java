@@ -1,4 +1,4 @@
-package com.example.IoT.Device.Management.request;
+package com.example.UniversityLibraryManagementSystem.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;

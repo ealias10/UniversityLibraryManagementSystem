@@ -21,11 +21,14 @@ public interface BookRepositery extends JpaRepository<Books, UUID> {
     @Query("select b from Books b inner join Author a on (b.author.id=a.id)   where a.name=:authorName and b.genre=:genre and b.publicationYear BETWEEN :pf and :pt  ORDER BY b.publicationYear ASC")
     List<Books> getAllbook(@Param("authorName") String autherName,@Param("genre") String genre,@Param("pf") String publicationYearFrom,@Param("pt") String publicationYearTo);
 
-    @Query("select b from Books b inner join BookLoan l on(l.book.id=b.id) inner join LibraryMember lm on(lm.id=l.member.id) where lm. memberId=:memid ")
+    @Query("select b from Books b inner join BookLoan l on(l.book.id=b.id) inner join LibraryMember lm on(lm.id=l.member.id) where lm. memberId=:memId ")
     Page<Books> getAllBooksByMemberId(@Param("memId")String memId,Pageable pageable);
 
+    @Query("select b from Books b where b.genre=:genre and b.id NOT IN(select bl.book.id from BookLoan bl) ORDER BY b.title ASC")
+    List<Books> getAllBooksByAvilabilAndGenre(String genre);
+
     @Query("select b from Books b where b.genre=:genre ORDER BY b.title ASC")
-    List<Books> getAllBooksByAvilabilAndGenre(String avl,String genre);
+    List<Books> getAllBooksByGenre(String genre);
 
 
 

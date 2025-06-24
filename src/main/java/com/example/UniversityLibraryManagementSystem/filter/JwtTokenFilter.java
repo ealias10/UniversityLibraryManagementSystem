@@ -1,10 +1,12 @@
-package com.example.IoT.Device.Management.filter;
+package com.example.UniversityLibraryManagementSystem.filter;
 
-import com.example.IoT.Device.Management.auth.AuthUser;
-import com.example.IoT.Device.Management.exception.ExpiredTokenException;
-import com.example.IoT.Device.Management.exception.InvalidTokenException;
-import com.example.IoT.Device.Management.interceptor.GlobalExceptionHandler;
-import com.example.IoT.Device.Management.model.enums.Roles;
+
+import com.example.UniversityLibraryManagementSystem.auth.AuthUser;
+import com.example.UniversityLibraryManagementSystem.exception.ExpiredTokenException;
+import com.example.UniversityLibraryManagementSystem.exception.InvalidTokenException;
+import com.example.UniversityLibraryManagementSystem.interupter.GlobalExceptionHandler;
+import com.example.UniversityLibraryManagementSystem.modal.enu.Roles;
+import com.example.UniversityLibraryManagementSystem.vo.ResponseVO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -13,8 +15,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import javax.crypto.SecretKey;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +25,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.crypto.SecretKey;
+import java.io.IOException;
 
 @Component
 @Slf4j
@@ -40,6 +43,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
   protected void doFilterInternal(
       HttpServletRequest request, HttpServletResponse response, FilterChain chain)
       throws ServletException, IOException {
+    String path=request.getRequestURI();
     // Get authorization header and validate
     final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
     if (header == null || header.isEmpty() || !header.startsWith(AUTHORIZATION_PREFIX)) {
@@ -51,7 +55,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     try {
       validate(token);
     } catch (Exception e) {
-      sendUnauthorizedResponse(response, e);
+      sendUnauthorizedResponse(request,response, e);
       return;
     }
     Claims claims = getClaims(token);
@@ -89,12 +93,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     return Keys.hmacShaKeyFor(jwtSecret.getBytes());
   }
 
-  private void sendUnauthorizedResponse(HttpServletResponse response, Exception ex)
+  private void sendUnauthorizedResponse(HttpServletRequest request,HttpServletResponse response, Exception ex)
       throws IOException {
     response.setStatus(HttpStatus.UNAUTHORIZED.value());
     response.setContentType("application/json");
     response
         .getOutputStream()
-        .write(GlobalExceptionHandler.getUnauthorizedResponseForAuthFilterErrors(ex));
+        .write(GlobalExceptionHandler.getUnauthorizedResponseForAuthFilterErrors(ex,request,response));
   }
 }
